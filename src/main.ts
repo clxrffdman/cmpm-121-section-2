@@ -10,6 +10,9 @@ const cactusHeight = 55;
 let score = 0;
 let gameOver = true;
 let isJumping = false;
+let cactusDuration = 2.5;
+let birdDuration = 4.5;
+let speed = 1.0;
 
 init();
 
@@ -28,6 +31,7 @@ function main() {
 
     checkGameOver();
   }
+  increaseSpeed();
 }
 
 function jump() {
@@ -45,12 +49,25 @@ function jump() {
 function removeJump() {
   dino?.classList.remove("jump");
   isJumping = false;
-  //mainLoop = mainLoop //bug fix?
 }
 
 function removeObstacles() {
   cactus?.classList.remove("cactusMove");
   bird?.classList.remove("birdMove");
+}
+
+function increaseSpeed() {
+  speed += 0.0003;
+
+  cactusDuration = 3.5 / speed;
+  birdDuration = 5.5 / speed;
+
+  if (speed >= 2) {
+    speed = 2;
+  }
+
+  cactus?.style.setProperty("--cactus-dur", cactusDuration.toString() + "s");
+  bird?.style.setProperty("--bird-dur", birdDuration.toString() + "s");
 }
 
 function checkGameOver() {
