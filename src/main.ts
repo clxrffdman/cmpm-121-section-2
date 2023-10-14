@@ -4,6 +4,8 @@ const dino = document.getElementById("dino");
 const cactus = document.getElementById("cactus");
 const bird = document.getElementById("bird");
 const scoreText = document.getElementById("scoreText");
+const birdHeight = 150;
+const cactusHeight = 55;
 
 let score = 0;
 let gameOver = true;
@@ -54,27 +56,24 @@ function removeObstacles() {
 function checkGameOver() {
   if (gameOver == false && dino != null && cactus != null && bird != null) {
     //get is dinosaur jumping
-    let dinoTop = parseInt(
+    const dinoTop = parseInt(
       window.getComputedStyle(dino).getPropertyValue("top")
     );
 
     //get cactus position
-    let cactusleft = parseInt(
+    const cactusleft = parseInt(
       window.getComputedStyle(cactus).getPropertyValue("left")
     );
 
     //get bird position
-    let birdleft = parseInt(
+    const birdleft = parseInt(
       window.getComputedStyle(bird).getPropertyValue("left")
     );
 
-    //detect cactus collision
-    if (dinoTop >= 150 && Math.abs(cactusleft) < 7) {
-      onPlayerCollision();
-    }
-
-    //detect bird collision
-    if (dinoTop <= 55 && Math.abs(birdleft) < 11) {
+    if (
+      (dinoTop >= birdHeight && Math.abs(cactusleft) < 7) ||
+      (dinoTop <= cactusHeight && Math.abs(birdleft) < 11)
+    ) {
       onPlayerCollision();
     }
   }
